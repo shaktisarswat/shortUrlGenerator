@@ -51,6 +51,9 @@ public class ShortUrl implements IShortUrl {
         if (longToShortMapping.containsKey(longUrl)) {
             return null;
         }
+        if (shortToLongMapping.containsKey(shortUrl)) {
+            return null;
+        }
 
         longToShortMapping.put(longUrl, shortUrl);
         shortToLongMapping.put(shortUrl, longUrl);
@@ -64,6 +67,7 @@ public class ShortUrl implements IShortUrl {
             return null;
         }
         if (shortToLongMapping.containsKey(shortUrl)) {
+            longUrlHitCount.put(shortUrl, longUrlHitCount.getOrDefault(shortUrl, 0) + 1);
             return shortToLongMapping.get(shortUrl);
         }
         return null;
@@ -72,7 +76,6 @@ public class ShortUrl implements IShortUrl {
     @Override
     public Integer getHitCount(String longUrl) {
         if (longToShortMapping.containsKey(longUrl)) {
-            longUrlHitCount.put(longUrl, longUrlHitCount.getOrDefault(longUrl, 0) + 1);
             longUrlHitCount.get(longUrl);
         }
         return 0;
